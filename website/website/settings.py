@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #'msgserver.apps.models' #probably wrong
+    'msgserver.apps.MsgserverConfig'
 ]
 
 MIDDLEWARE = [

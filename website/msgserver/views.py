@@ -1,3 +1,8 @@
 from django.shortcuts import render
+from .models import Message
+from django.http import HttpResponse
 
-# Create your views here.
+def getmessage(request, key):
+    messagetoget = Message.objects.filter(key=key)
+    return HttpResponse(messagetoget)
+

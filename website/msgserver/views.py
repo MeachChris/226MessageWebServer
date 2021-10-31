@@ -25,13 +25,14 @@ class UpdateMessage(UpdateView):
         success_url = reverse_lazy('returnall')
         #request = ''
         def get_object(self):
-            try:
-                ToBeReturned = Message.objects.get(key=self.kwargs.get("key"))
-            #stringMe = self.request
-            #stringMe = str(stringMe)
-            #return Message.objects.filter(key=stringMe[EXTRACT_STRING_FROM_START:EXTRACT_STRING_FROM_END])[0]
-                return ToBeReturned
-            except ObjectDoesNotExist:
+        
+            ToBeReturned = Message.objects.get(key=self.kwargs.get("key"))
+        #stringMe = self.request
+        #stringMe = str(stringMe)
+        #return Message.objects.filter(key=stringMe[EXTRACT_STRING_FROM_START:EXTRACT_STRING_FROM_END])[0]
+            return ToBeReturned
+            
+
                 
 #This returns all of the messages from the server in the form of JSON at the default URL.
 def returnall(request):

@@ -1,6 +1,10 @@
 from django.db import models
 from django.core.validators import MinLengthValidator
 from django.core.exceptions import ValidationError
+from django.test import TestCase
+from django.core.exceptions import ObjectDoesNotExist
+
+
 #This is to ensure that the key is not a duplicate that has been previously passed.
 def validatekeydupe(value):
     for message in Message.objects.all():
@@ -21,4 +25,5 @@ class Message(models.Model):
         return 'KEY: ' + self.key + ', MESSAGE: ' + self.message
 
 
-# Create your models here.
+# TEST CASES:::::::::::::::::::::::::::::::::::::::::::::::::
+

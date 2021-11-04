@@ -41,6 +41,7 @@ def returnall(request):
         for i in themessages:
             returnMe += json.dumps(i, cls=MessageEncode) + ", "
         return HttpResponse(returnMe)
+        
 #Encodes messages in to a JSON format.
 class MessageEncode(json.JSONEncoder):
     def default(self, obj):

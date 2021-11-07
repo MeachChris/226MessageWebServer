@@ -22,7 +22,7 @@ class Message(models.Model):
     message = models.CharField(max_length=160, validators=[MinLengthValidator(1)])
     #returns key/ message
     def __str__(self):
-        return 'KEY: ' + self.key + ', MESSAGE: ' + self.message
+        return '{\"key\": \"' + self.key + '\", \"message\":\"' + self.message + '\"}'
 
 
 # TEST CASES:::::::::::::::::::::::::::::::::::::::::::::::::

@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.core.exceptions import ObjectDoesNotExist
 from msgserver.models import *
+import json
 
 
 class MsgTestCase(TestCase):
@@ -10,12 +11,14 @@ class MsgTestCase(TestCase):
         m = Message.objects.get(key ='12345678')
         print(m)
         self.assertEqual(m.message, 'hello')
+        print("test_createretrieve PASSED")
 
     def test_duplicate(self):
         response = self.client.post("/msgserver/create/", {'key' : '12345678', 'message' : 'hello'})
         response = self.client.post("/msgserver/create/", {'key' : '12345678', 'message' : 'goodbye'})
         m = Message.objects.get(key ='12345678')
         self.assertEqual(m.message, 'hello')
+        print("test_duplicate PASSED")
 
     def test_msgsize(self):
         #161 characters in test for message (over much)
@@ -62,6 +65,7 @@ class MsgTestCase(TestCase):
         response = self.client.post("/msgserver/create/", {'key' : '12345677', 'message' : 'Worked'})
         m = Message.objects.get(key ='12345677')
         self.assertEqual(m.message, 'Worked')
+        print("test_msgsize PASSED")
 
 
     def test_update(self):
@@ -71,9 +75,23 @@ class MsgTestCase(TestCase):
         response = self.client.post("/msgserver/update/12345677/", {'message' : 'new'})
         m = Message.objects.get(key ='12345677')
         self.assertEqual(m.message, 'new')
+        print("test_update PASSED")
+
 
     def test_jsonget(self):
-        #Not sure how I would actually compare aside from just checking json format?
-        #ask teacher?
-
+        response = self.client.post("/msgserver/create/", {'key' : '12345677', 'message' : 'json'})
+        m = Message.objects.all()
+        str(m).split(',')
+        for msg in m:
+            if (len(str(msg)) > 6):
+                print(msg)
+                json.loads(str(msg))
+        
+        m = Message.objects.get(key = '12345677')
+        m = str(m)
+        print(m)
+        json.loads(m)
+        print("test_jsonget PASSED")
+        
+        
 

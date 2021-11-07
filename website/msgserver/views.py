@@ -7,8 +7,15 @@ import json
 from django.core.exceptions import ObjectDoesNotExist
 #This gets the message from an url /get/<8digitkey> if the key is found, which must be 8 digit alphanumeric.
 def getmessage(request, key):
-    themessage = Message.objects.filter(key=key)
-    return HttpResponse(themessage)
+    #themessage = Message.objects.filter(key=key)
+    #return HttpResponse(themessage)
+    #msg = Message.objects.all()
+    #return HttpResponse(json.dumps(list(msg), cls = MsgEncoder))
+    msg = Message.objects.filter(key = key)
+    if (len(msg) == 1):
+        return HttpResponse("%(key)s: %(msg)s" % {'key':msg[0].key, 'msg':msg[0].message})
+    else:
+        return HttpResponse(" ")
 
     #This class is a view for creation of messages.  it allows users to create messages that have not previously been used.
     #The keys must be 8 digit alphanumeric and unique.  The message must be 1 character or longer. /create/
@@ -36,11 +43,14 @@ class UpdateMessage(UpdateView):
                 
 #This returns all of the messages from the server in the form of JSON at the default URL.
 def returnall(request):
-        themessages = Message.objects.all()
-        returnMe = ''
-        for i in themessages:
-            returnMe += json.dumps(i, cls=MessageEncode) + ", "
-        return HttpResponse(returnMe)
+        #themessages = Message.objects.all()
+       # returnMe = ''
+        #for i in themessages:
+        #    returnMe += json.dumps(i, cls=MessageEncode) + ", "
+       # return HttpResponse(returnMe)
+        msg = Message.objects.all()
+        return HttpResponse(json.dumps(list(msg), cls=MessageEncode))
+        
         
 #Encodes messages in to a JSON format.
 class MessageEncode(json.JSONEncoder):

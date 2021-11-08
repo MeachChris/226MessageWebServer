@@ -1,7 +1,7 @@
 import requests
 from django.core.exceptions import ObjectDoesNotExist
 import json
-#
+
 #!/usr/bin/env python3
 
 import sys, random, string

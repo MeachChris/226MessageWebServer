@@ -9,7 +9,7 @@ class MsgTestCase(TestCase):
         response = self.client.post("/msgserver/create/", {'key' : '12345678', 'message' : 'hello'})
         #self.assertFormError(response, 'key', 'message', 'failed to put')
         m = Message.objects.get(key ='12345678')
-        print(m)
+        #print(m)
         self.assertEqual(m.message, 'hello')
         print("test_createretrieve PASSED")
 
@@ -89,7 +89,7 @@ class MsgTestCase(TestCase):
         
         m = Message.objects.get(key = '12345677')
         m = str(m)
-        print(m)
+        #print(m)
         json.loads(m)
         print("test_jsonget PASSED")
         
